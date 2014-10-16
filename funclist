@@ -1,0 +1,4 @@
+_main: CODE, 1418 0 630
+_DelayMs: CODE, 1174 0 33
+_writeOn7SegmentDisplay: CODE, 1207 0 211
+Total: 874

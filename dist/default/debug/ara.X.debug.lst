@@ -1,0 +1,1402 @@
+
+
+HI-TECH Software PIC LITE Macro Assembler V9.82 build 9453 
+                                                                                               Thu Apr 19 17:43:11 2012
+
+HI-TECH Software Omniscient Code Generator (Lite mode) build 9453
+     1  0000                     opt subtitle "HI-TECH Software Omniscient Code Generator (Lite mode) build 9453"
+     2                           
+     3                           opt pagewidth 120
+     4                           
+     5                           	opt lm
+     6                           
+     7                           	processor	16F877
+     8                           clrc	macro
+     9                           	bcf	3,0
+    10  0000                     	endm
+    11                           clrz	macro
+    12                           	bcf	3,2
+    13  0000                     	endm
+    14                           setc	macro
+    15                           	bsf	3,0
+    16  0000                     	endm
+    17                           setz	macro
+    18                           	bsf	3,2
+    19  0000                     	endm
+    20                           skipc	macro
+    21                           	btfss	3,0
+    22  0000                     	endm
+    23                           skipz	macro
+    24                           	btfss	3,2
+    25  0000                     	endm
+    26                           skipnc	macro
+    27                           	btfsc	3,0
+    28  0000                     	endm
+    29                           skipnz	macro
+    30                           	btfsc	3,2
+    31  0000                     	endm
+    32  0000                     indf	equ	0
+    33  0000                     indf0	equ	0
+    34  0002                     pc	equ	2
+    35  0002                     pcl	equ	2
+    36  0003                     status	equ	3
+    37  0004                     fsr	equ	4
+    38  0004                     fsr0	equ	4
+    39  0001                     c	equ	1
+    40  0000                     z	equ	0
+    41  000A                     pclath	equ	10
+    42                           # 14 "main.c"
+    43                           	psect config,class=CONFIG,delta=2 ;#
+    44                           # 14 "main.c"
+    45  2007  FD32               	dw 0xFFFE & 0xFFFB & 0xFFF7 & 0xFFBF & 0xFF7F & 0xFFFF & 0xFDFF & 0xFFFF & 0xFFFF ;#
+    46                           	FNCALL	_main,_DelayMs
+    47                           	FNCALL	_main,_writeOn7SegmentDisplay
+    48                           	FNROOT	_main
+    49                           	global	_secval
+    50                           	global	_centsecval
+    51                           	global	_decsecval
+    52                           	global	_DDsecval
+    53                           psect	nvBANK0,class=BANK0,space=1
+    54                           global __pnvBANK0
+    55  0020                     __pnvBANK0:
+    56  0020                     _DDsecval:
+    57  0020                            ds      2
+    58                           
+    59                           	global	_val
+    60  0022                     _val:
+    61  0022                            ds      2
+    62                           
+    63                           	global	_PORTA
+    64  0005                     _PORTA	set	5
+    65                           	global	_PORTB
+    66  0006                     _PORTB	set	6
+    67                           	global	_PORTC
+    68  0007                     _PORTC	set	7
+    69                           	global	_PORTD
+    70  0008                     _PORTD	set	8
+    71                           	global	_PORTE
+    72  0009                     _PORTE	set	9
+    73                           	global	_CARRY
+    74  0018                     _CARRY	set	24
+    75                           	global	_GIE
+    76  005F                     _GIE	set	95
+    77                           	global	_TRISA
+    78  0085                     _TRISA	set	133
+    79                           	global	_TRISB
+    80  0086                     _TRISB	set	134
+    81                           	global	_TRISC
+    82  0087                     _TRISC	set	135
+    83                           	global	_TRISD
+    84  0088                     _TRISD	set	136
+    85                           	global	_TRISE
+    86  0089                     _TRISE	set	137
+    87                           	global	_EEADR
+    88  010D                     _EEADR	set	269
+    89                           	global	_EEDATA
+    90  010C                     _EEDATA	set	268
+    91                           	global	_EECON1
+    92  018C                     _EECON1	set	396
+    93                           	global	_EECON2
+    94  018D                     _EECON2	set	397
+    95                           	global	_RD
+    96  0C60                     _RD	set	3168
+    97                           	global	_WR
+    98  0C61                     _WR	set	3169
+    99                           	global	_WREN
+   100  0C62                     _WREN	set	3170
+   101                           	file	"C:\Users\Stefano\AppData\Local\Temp\s54c."
+   102                           	line	#
+   103                           psect cinit,class=CODE,delta=2
+   104                           global start_initialization
+   105  0656                     start_initialization:
+   106                           
+   107                           psect	bssCOMMON,class=COMMON,space=1
+   108                           global __pbssCOMMON
+   109  0079                     __pbssCOMMON:
+   110  0079                     _centsecval:
+   111  0079                            ds      2
+   112                           
+   113  007B                     _decsecval:
+   114  007B                            ds      2
+   115                           
+   116                           psect	bssBANK0,class=BANK0,space=1
+   117                           global __pbssBANK0
+   118  0024                     __pbssBANK0:
+   119  0024                     _secval:
+   120  0024                            ds      2
+   121                           
+   122                           ; Clear objects allocated to COMMON
+   123                           psect cinit,class=CODE,delta=2
+   124  0656  01F9               	clrf	((__pbssCOMMON)+0)&07Fh
+   125  0657  01FA               	clrf	((__pbssCOMMON)+1)&07Fh
+   126  0658  01FB               	clrf	((__pbssCOMMON)+2)&07Fh
+   127  0659  01FC               	clrf	((__pbssCOMMON)+3)&07Fh
+   128                           ; Clear objects allocated to BANK0
+   129                           psect cinit,class=CODE,delta=2
+   130  065A  01A4               	clrf	((__pbssBANK0)+0)&07Fh
+   131  065B  01A5               	clrf	((__pbssBANK0)+1)&07Fh
+   132                           psect cinit,class=CODE,delta=2
+   133                           global end_of_initialization
+   134                           
+   135                           ;End of C runtime variable initialization code
+   136                           
+   137  065C                     end_of_initialization:
+   138  065C  0183               clrf status
+   139  065D  120A  118A  2E81   ljmp _main	;jump to C main() function
+   140                           psect	cstackCOMMON,class=COMMON,space=1
+   141                           global __pcstackCOMMON
+   142  0070                     __pcstackCOMMON:
+   143                           	global	?_DelayMs
+   144  0070                     ?_DelayMs:	; 0 bytes @ 0x0
+   145                           	global	??_DelayMs
+   146  0070                     ??_DelayMs:	; 0 bytes @ 0x0
+   147                           	global	?_writeOn7SegmentDisplay
+   148  0070                     ?_writeOn7SegmentDisplay:	; 2 bytes @ 0x0
+   149                           	global	writeOn7SegmentDisplay@value
+   150  0070                     writeOn7SegmentDisplay@value:	; 1 bytes @ 0x0
+   151  0070                     	ds	1
+   152                           	global	??_writeOn7SegmentDisplay
+   153  0071                     ??_writeOn7SegmentDisplay:	; 0 bytes @ 0x1
+   154                           	global	DelayMs@cnt
+   155  0071                     DelayMs@cnt:	; 1 bytes @ 0x1
+   156  0071                     	ds	1
+   157                           	global	writeOn7SegmentDisplay@displaynum
+   158  0072                     writeOn7SegmentDisplay@displaynum:	; 1 bytes @ 0x2
+   159                           	global	DelayMs@i
+   160  0072                     DelayMs@i:	; 1 bytes @ 0x2
+   161  0072                     	ds	1
+   162                           	global	writeOn7SegmentDisplay@codedvalue
+   163  0073                     writeOn7SegmentDisplay@codedvalue:	; 1 bytes @ 0x3
+   164                           	global	DelayMs@_dcnt
+   165  0073                     DelayMs@_dcnt:	; 1 bytes @ 0x3
+   166  0073                     	ds	1
+   167                           	global	?_main
+   168  0074                     ?_main:	; 2 bytes @ 0x4
+   169                           	global	main@argc
+   170  0074                     main@argc:	; 2 bytes @ 0x4
+   171  0074                     	ds	2
+   172                           	global	main@argv
+   173  0076                     main@argv:	; 2 bytes @ 0x6
+   174  0076                     	ds	2
+   175                           	global	??_main
+   176  0078                     ??_main:	; 0 bytes @ 0x8
+   177  0078                     	ds	1
+   178 ;;Data sizes: Strings 0, constant 0, data 0, bss 6, persistent 4 stack 0
+   179 ;;Auto spaces:   Size  Autos    Used
+   180 ;; COMMON          14      9      13
+   181 ;; BANK0           80      0       6
+   182 ;; BANK1           80      0       0
+   183 ;; BANK3           96      0       0
+   184 ;; BANK2           96      0       0
+   185                           
+   186 ;;
+   187 ;; Pointer list with targets:
+   188                           
+   189                           
+   190                           
+   191 ;;
+   192 ;; Critical Paths under _main in COMMON
+   193 ;;
+   194 ;;   _main->_DelayMs
+   195 ;;   _main->_writeOn7SegmentDisplay
+   196 ;;
+   197 ;; Critical Paths under _main in BANK0
+   198 ;;
+   199 ;;   None.
+   200 ;;
+   201 ;; Critical Paths under _main in BANK1
+   202 ;;
+   203 ;;   None.
+   204 ;;
+   205 ;; Critical Paths under _main in BANK3
+   206 ;;
+   207 ;;   None.
+   208 ;;
+   209 ;; Critical Paths under _main in BANK2
+   210 ;;
+   211 ;;   None.
+   212                           
+   213 ;;
+   214 ;;Main: autosize = 0, tempsize = 1, incstack = 0, save=0
+   215 ;;
+   216                           
+   217 ;;
+   218 ;;Call Graph Tables:
+   219 ;;
+   220 ;; ---------------------------------------------------------------------------------
+   221 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   222 ;; ---------------------------------------------------------------------------------
+   223 ;; (0) _main                                                 5     1      4     240
+   224 ;;                                              4 COMMON     5     1      4
+   225 ;;                            _DelayMs
+   226 ;;             _writeOn7SegmentDisplay
+   227 ;; ---------------------------------------------------------------------------------
+   228 ;; (1) _writeOn7SegmentDisplay                               4     3      1     172
+   229 ;;                                              0 COMMON     4     3      1
+   230 ;; ---------------------------------------------------------------------------------
+   231 ;; (1) _DelayMs                                              4     4      0      68
+   232 ;;                                              0 COMMON     4     4      0
+   233 ;; ---------------------------------------------------------------------------------
+   234 ;; Estimated maximum stack depth 1
+   235 ;; ---------------------------------------------------------------------------------
+   236                           
+   237 ;; Call Graph Graphs:
+   238                           
+   239 ;; _main (ROOT)
+   240 ;;   _DelayMs
+   241 ;;   _writeOn7SegmentDisplay
+   242 ;;
+   243                           
+   244 ;; Address spaces:
+   245                           
+   246 ;;Name               Size   Autos  Total    Cost      Usage
+   247 ;;BITCOMMON            E      0       0       0        0.0%
+   248 ;;EEDATA             100      0       0       0        0.0%
+   249 ;;NULL                 0      0       0       0        0.0%
+   250 ;;CODE                 0      0       0       0        0.0%
+   251 ;;COMMON               E      9       D       1       92.9%
+   252 ;;BITSFR0              0      0       0       1        0.0%
+   253 ;;SFR0                 0      0       0       1        0.0%
+   254 ;;BITSFR1              0      0       0       2        0.0%
+   255 ;;SFR1                 0      0       0       2        0.0%
+   256 ;;STACK                0      0       1       2        0.0%
+   257 ;;ABS                  0      0      13       3        0.0%
+   258 ;;BITBANK0            50      0       0       4        0.0%
+   259 ;;BITSFR3              0      0       0       4        0.0%
+   260 ;;SFR3                 0      0       0       4        0.0%
+   261 ;;BANK0               50      0       6       5        7.5%
+   262 ;;BITSFR2              0      0       0       5        0.0%
+   263 ;;SFR2                 0      0       0       5        0.0%
+   264 ;;BITBANK1            50      0       0       6        0.0%
+   265 ;;BANK1               50      0       0       7        0.0%
+   266 ;;BITBANK3            60      0       0       8        0.0%
+   267 ;;BANK3               60      0       0       9        0.0%
+   268 ;;BITBANK2            60      0       0      10        0.0%
+   269 ;;BANK2               60      0       0      11        0.0%
+   270 ;;DATA                 0      0      14      12        0.0%
+   271                           
+   272                           	global	_main
+   273                           psect	maintext,global,class=CODE,delta=2
+   274                           global __pmaintext
+   275  0681                     __pmaintext:
+   276                           
+   277 ;; *************** function _main *****************
+   278 ;; Defined at:
+   279 ;;		line 31 in file "main.c"
+   280 ;; Parameters:    Size  Location     Type
+   281 ;;  argc            2    4[COMMON] int 
+   282 ;;  argv            2    6[COMMON] PTR PTR unsigned char 
+   283 ;; Auto vars:     Size  Location     Type
+   284 ;;		None
+   285 ;; Return value:  Size  Location     Type
+   286 ;;                  2    4[COMMON] int 
+   287 ;; Registers used:
+   288 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+   289 ;; Tracked objects:
+   290 ;;		On entry : 17F/0
+   291 ;;		On exit  : 0/0
+   292 ;;		Unchanged: 0/0
+   293 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   294 ;;      Params:         4       0       0       0       0
+   295 ;;      Locals:         0       0       0       0       0
+   296 ;;      Temps:          1       0       0       0       0
+   297 ;;      Totals:         5       0       0       0       0
+   298 ;;Total ram usage:        5 bytes
+   299 ;; Hardware stack levels required when called:    1
+   300 ;; This function calls:
+   301 ;;		_DelayMs
+   302 ;;		_writeOn7SegmentDisplay
+   303 ;; This function is called by:
+   304 ;;		Startup code after reset
+   305 ;; This function uses a non-reentrant model
+   306 ;;
+   307                           psect	maintext
+   308                           	file	"main.c"
+   309                           	line	31
+   310                           	global	__size_of_main
+   311  00BF                     	__size_of_main	equ	__end_of_main-_main
+   312                           	
+   313  0681                     _main:	
+   314                           	opt	stack 7
+   315                           ; Regs used in _main: [wreg-fsr0h+status,2+status,0+btemp+1+pclath+cstack]
+   316                           	line	32
+   317                           	
+   318  0681                     l3012:	
+   319                           ;main.c: 32: TRISA=0b00000000;
+   320  0681  1683               	bsf	status, 5	;RP0=1, select bank1
+   321  0682  1303               	bcf	status, 6	;RP1=0, select bank1
+   322  0683  0185               	clrf	(133)^080h	;volatile
+   323                           	line	33
+   324                           ;main.c: 33: TRISB=0b00000000;
+   325  0684  0186               	clrf	(134)^080h	;volatile
+   326                           	line	34
+   327                           ;main.c: 34: TRISC=0b00000000;
+   328  0685  0187               	clrf	(135)^080h	;volatile
+   329                           	line	35
+   330                           ;main.c: 35: TRISD=0b00000000;
+   331  0686  0188               	clrf	(136)^080h	;volatile
+   332                           	line	36
+   333                           ;main.c: 36: TRISE=0b00000000;
+   334  0687  0189               	clrf	(137)^080h	;volatile
+   335                           	line	37
+   336                           ;main.c: 37: PORTA=0;
+   337  0688  1283               	bcf	status, 5	;RP0=0, select bank0
+   338  0689  1303               	bcf	status, 6	;RP1=0, select bank0
+   339  068A  0185               	clrf	(5)	;volatile
+   340                           	line	38
+   341                           ;main.c: 38: PORTB=0;
+   342  068B  0186               	clrf	(6)	;volatile
+   343                           	line	39
+   344                           ;main.c: 39: PORTC=0;
+   345  068C  0187               	clrf	(7)	;volatile
+   346                           	line	40
+   347                           ;main.c: 40: PORTD=0;
+   348  068D  0188               	clrf	(8)	;volatile
+   349                           	line	41
+   350                           ;main.c: 41: PORTE=0;
+   351  068E  0189               	clrf	(9)	;volatile
+   352                           	line	43
+   353                           ;main.c: 43: centsecval = 0;
+   354  068F  01F9               	clrf	(_centsecval)
+   355  0690  01FA               	clrf	(_centsecval+1)
+   356                           	line	44
+   357                           ;main.c: 44: decsecval = 0;
+   358  0691  01FB               	clrf	(_decsecval)
+   359  0692  01FC               	clrf	(_decsecval+1)
+   360                           	line	45
+   361                           ;main.c: 45: secval = 0;
+   362  0693  01A4               	clrf	(_secval)
+   363  0694  01A5               	clrf	(_secval+1)
+   364                           	line	46
+   365                           	
+   366  0695                     l3014:	
+   367                           ;main.c: 46: DDsecval = 6;
+   368  0695  3006               	movlw	low(06h)
+   369  0696  00A0               	movwf	(_DDsecval)
+   370  0697  3000               	movlw	high(06h)
+   371  0698  00A1               	movwf	((_DDsecval))+1
+   372                           	line	48
+   373                           	
+   374  0699                     l3016:	
+   375                           ;main.c: 48: val = 6000;
+   376  0699  3070               	movlw	low(01770h)
+   377  069A  00A2               	movwf	(_val)
+   378  069B  3017               	movlw	high(01770h)
+   379  069C  00A3               	movwf	((_val))+1
+   380  069D  2E9E               	goto	l3018
+   381                           	line	49
+   382                           ;main.c: 49: while(1)
+   383                           	
+   384  069E                     l655:	
+   385                           	line	51
+   386                           	
+   387  069E                     l3018:	
+   388                           ;main.c: 50: {
+   389                           ;main.c: 51: DelayMs(10);
+   390  069E  300A               	movlw	(0Ah)
+   391  069F  120A  118A  2660   	fcall	_DelayMs
+              120A  118A         
+   392                           	line	52
+   393                           	
+   394  06A4                     l3020:	
+   395                           ;main.c: 52: writeOn7SegmentDisplay(CENTSEC,centsecval);
+   396  06A4  0879               	movf	(_centsecval),w
+   397  06A5  00F8               	movwf	(??_main+0)+0
+   398  06A6  0878               	movf	(??_main+0)+0,w
+   399  06A7  00F0               	movwf	(?_writeOn7SegmentDisplay)
+   400  06A8  3000               	movlw	(0)
+   401  06A9  120A  118A  2740   	fcall	_writeOn7SegmentDisplay
+              120A  118A         
+   402                           	line	53
+   403                           	
+   404  06AE                     l3022:	
+   405                           ;main.c: 53: writeOn7SegmentDisplay(DECSEC,decsecval);
+   406  06AE  087B               	movf	(_decsecval),w
+   407  06AF  00F8               	movwf	(??_main+0)+0
+   408  06B0  0878               	movf	(??_main+0)+0,w
+   409  06B1  00F0               	movwf	(?_writeOn7SegmentDisplay)
+   410  06B2  3001               	movlw	(01h)
+   411  06B3  120A  118A  2740   	fcall	_writeOn7SegmentDisplay
+              120A  118A         
+   412                           	line	54
+   413                           	
+   414  06B8                     l3024:	
+   415                           ;main.c: 54: writeOn7SegmentDisplay(SEC,secval);
+   416  06B8  1283               	bcf	status, 5	;RP0=0, select bank0
+   417  06B9  1303               	bcf	status, 6	;RP1=0, select bank0
+   418  06BA  0824               	movf	(_secval),w
+   419  06BB  00F8               	movwf	(??_main+0)+0
+   420  06BC  0878               	movf	(??_main+0)+0,w
+   421  06BD  00F0               	movwf	(?_writeOn7SegmentDisplay)
+   422  06BE  3002               	movlw	(02h)
+   423  06BF  120A  118A  2740   	fcall	_writeOn7SegmentDisplay
+              120A  118A         
+   424                           	line	55
+   425                           	
+   426  06C4                     l3026:	
+   427                           ;main.c: 55: writeOn7SegmentDisplay(DDSEC,DDsecval);
+   428  06C4  1283               	bcf	status, 5	;RP0=0, select bank0
+   429  06C5  1303               	bcf	status, 6	;RP1=0, select bank0
+   430  06C6  0820               	movf	(_DDsecval),w
+   431  06C7  00F8               	movwf	(??_main+0)+0
+   432  06C8  0878               	movf	(??_main+0)+0,w
+   433  06C9  00F0               	movwf	(?_writeOn7SegmentDisplay)
+   434  06CA  3003               	movlw	(03h)
+   435  06CB  120A  118A  2740   	fcall	_writeOn7SegmentDisplay
+              120A  118A         
+   436                           	line	56
+   437                           	
+   438  06D0                     l3028:	
+   439                           ;main.c: 56: if(centsecval <= 0)
+   440  06D0  087A               	movf	(_centsecval+1),w
+   441  06D1  3A80               	xorlw	80h
+   442  06D2  00FF               	movwf	btemp+1
+   443  06D3  3080               	movlw	(high(01h))^80h
+   444  06D4  027F               	subwf	btemp+1,w
+   445  06D5  1D03               	skipz
+   446  06D6  2ED9               	goto	u2345
+   447  06D7  3001               	movlw	low(01h)
+   448  06D8  0279               	subwf	(_centsecval),w
+   449  06D9                     u2345:
+   450                           
+   451  06D9  1803               	skipnc
+   452  06DA  2EDC               	goto	u2341
+   453  06DB  2EDD               	goto	u2340
+   454  06DC                     u2341:
+   455  06DC  2EE8               	goto	l3032
+   456  06DD                     u2340:
+   457                           	line	58
+   458                           	
+   459  06DD                     l3030:	
+   460                           ;main.c: 57: {
+   461                           ;main.c: 58: centsecval=9;
+   462  06DD  3009               	movlw	low(09h)
+   463  06DE  00F9               	movwf	(_centsecval)
+   464  06DF  3000               	movlw	high(09h)
+   465  06E0  00FA               	movwf	((_centsecval))+1
+   466                           	line	59
+   467                           ;main.c: 59: decsecval--;
+   468  06E1  30FF               	movlw	low(-1)
+   469  06E2  07FB               	addwf	(_decsecval),f
+   470  06E3  1803               	skipnc
+   471  06E4  0AFC               	incf	(_decsecval+1),f
+   472  06E5  30FF               	movlw	high(-1)
+   473  06E6  07FC               	addwf	(_decsecval+1),f
+   474                           	line	60
+   475                           ;main.c: 60: }
+   476  06E7  2EEF               	goto	l3034
+   477                           	line	61
+   478                           	
+   479  06E8                     l656:	
+   480                           	line	63
+   481                           	
+   482  06E8                     l3032:	
+   483                           ;main.c: 61: else
+   484                           ;main.c: 62: {
+   485                           ;main.c: 63: centsecval--;
+   486  06E8  30FF               	movlw	low(-1)
+   487  06E9  07F9               	addwf	(_centsecval),f
+   488  06EA  1803               	skipnc
+   489  06EB  0AFA               	incf	(_centsecval+1),f
+   490  06EC  30FF               	movlw	high(-1)
+   491  06ED  07FA               	addwf	(_centsecval+1),f
+   492  06EE  2EEF               	goto	l3034
+   493                           	line	64
+   494                           	
+   495  06EF                     l657:	
+   496                           	line	65
+   497                           	
+   498  06EF                     l3034:	
+   499                           ;main.c: 64: }
+   500                           ;main.c: 65: if(decsecval <= 0)
+   501  06EF  087C               	movf	(_decsecval+1),w
+   502  06F0  3A80               	xorlw	80h
+   503  06F1  00FF               	movwf	btemp+1
+   504  06F2  3080               	movlw	(high(01h))^80h
+   505  06F3  027F               	subwf	btemp+1,w
+   506  06F4  1D03               	skipz
+   507  06F5  2EF8               	goto	u2355
+   508  06F6  3001               	movlw	low(01h)
+   509  06F7  027B               	subwf	(_decsecval),w
+   510  06F8                     u2355:
+   511                           
+   512  06F8  1803               	skipnc
+   513  06F9  2EFB               	goto	u2351
+   514  06FA  2EFC               	goto	u2350
+   515  06FB                     u2351:
+   516  06FB  2F09               	goto	l3038
+   517  06FC                     u2350:
+   518                           	line	67
+   519                           	
+   520  06FC                     l3036:	
+   521                           ;main.c: 66: {
+   522                           ;main.c: 67: decsecval=9;
+   523  06FC  3009               	movlw	low(09h)
+   524  06FD  00FB               	movwf	(_decsecval)
+   525  06FE  3000               	movlw	high(09h)
+   526  06FF  00FC               	movwf	((_decsecval))+1
+   527                           	line	68
+   528                           ;main.c: 68: secval--;
+   529  0700  30FF               	movlw	low(-1)
+   530  0701  1283               	bcf	status, 5	;RP0=0, select bank0
+   531  0702  1303               	bcf	status, 6	;RP1=0, select bank0
+   532  0703  07A4               	addwf	(_secval),f
+   533  0704  1803               	skipnc
+   534  0705  0AA5               	incf	(_secval+1),f
+   535  0706  30FF               	movlw	high(-1)
+   536  0707  07A5               	addwf	(_secval+1),f
+   537  0708  2F09               	goto	l3038
+   538                           	line	69
+   539                           	
+   540  0709                     l658:	
+   541                           	line	70
+   542                           	
+   543  0709                     l3038:	
+   544                           ;main.c: 69: }
+   545                           ;main.c: 70: if(secval <= 0)
+   546  0709  1283               	bcf	status, 5	;RP0=0, select bank0
+   547  070A  1303               	bcf	status, 6	;RP1=0, select bank0
+   548  070B  0825               	movf	(_secval+1),w
+   549  070C  3A80               	xorlw	80h
+   550  070D  00FF               	movwf	btemp+1
+   551  070E  3080               	movlw	(high(01h))^80h
+   552  070F  027F               	subwf	btemp+1,w
+   553  0710  1D03               	skipz
+   554  0711  2F14               	goto	u2365
+   555  0712  3001               	movlw	low(01h)
+   556  0713  0224               	subwf	(_secval),w
+   557  0714                     u2365:
+   558                           
+   559  0714  1803               	skipnc
+   560  0715  2F17               	goto	u2361
+   561  0716  2F18               	goto	u2360
+   562  0717                     u2361:
+   563  0717  2F25               	goto	l3042
+   564  0718                     u2360:
+   565                           	line	72
+   566                           	
+   567  0718                     l3040:	
+   568                           ;main.c: 71: {
+   569                           ;main.c: 72: secval=9;
+   570  0718  3009               	movlw	low(09h)
+   571  0719  1283               	bcf	status, 5	;RP0=0, select bank0
+   572  071A  1303               	bcf	status, 6	;RP1=0, select bank0
+   573  071B  00A4               	movwf	(_secval)
+   574  071C  3000               	movlw	high(09h)
+   575  071D  00A5               	movwf	((_secval))+1
+   576                           	line	73
+   577                           ;main.c: 73: DDsecval--;
+   578  071E  30FF               	movlw	low(-1)
+   579  071F  07A0               	addwf	(_DDsecval),f
+   580  0720  1803               	skipnc
+   581  0721  0AA1               	incf	(_DDsecval+1),f
+   582  0722  30FF               	movlw	high(-1)
+   583  0723  07A1               	addwf	(_DDsecval+1),f
+   584  0724  2F25               	goto	l3042
+   585                           	line	74
+   586                           	
+   587  0725                     l659:	
+   588                           	line	75
+   589                           	
+   590  0725                     l3042:	
+   591                           ;main.c: 74: }
+   592                           ;main.c: 75: if(DDsecval <= 0)
+   593  0725  1283               	bcf	status, 5	;RP0=0, select bank0
+   594  0726  1303               	bcf	status, 6	;RP1=0, select bank0
+   595  0727  0821               	movf	(_DDsecval+1),w
+   596  0728  3A80               	xorlw	80h
+   597  0729  00FF               	movwf	btemp+1
+   598  072A  3080               	movlw	(high(01h))^80h
+   599  072B  027F               	subwf	btemp+1,w
+   600  072C  1D03               	skipz
+   601  072D  2F30               	goto	u2375
+   602  072E  3001               	movlw	low(01h)
+   603  072F  0220               	subwf	(_DDsecval),w
+   604  0730                     u2375:
+   605                           
+   606  0730  1803               	skipnc
+   607  0731  2F33               	goto	u2371
+   608  0732  2F34               	goto	u2370
+   609  0733                     u2371:
+   610  0733  2E9E               	goto	l3018
+   611  0734                     u2370:
+   612                           	line	77
+   613                           	
+   614  0734                     l3044:	
+   615                           ;main.c: 76: {
+   616                           ;main.c: 77: DDsecval=6;
+   617  0734  3006               	movlw	low(06h)
+   618  0735  1283               	bcf	status, 5	;RP0=0, select bank0
+   619  0736  1303               	bcf	status, 6	;RP1=0, select bank0
+   620  0737  00A0               	movwf	(_DDsecval)
+   621  0738  3000               	movlw	high(06h)
+   622  0739  00A1               	movwf	((_DDsecval))+1
+   623  073A  2E9E               	goto	l3018
+   624                           	line	78
+   625                           	
+   626  073B                     l660:	
+   627  073B  2E9E               	goto	l3018
+   628                           	line	80
+   629                           	
+   630  073C                     l661:	
+   631                           	line	49
+   632  073C  2E9E               	goto	l3018
+   633                           	
+   634  073D                     l662:	
+   635                           	line	84
+   636                           ;main.c: 78: }
+   637                           ;main.c: 80: }
+   638                           ;main.c: 83: return (0);
+   639                           ;	Return value of _main is never used
+   640                           	
+   641  073D                     l663:	
+   642                           	global	start
+   643  073D  120A  118A  2800   	ljmp	start
+   644                           	opt stack 0
+   645                           GLOBAL	__end_of_main
+   646  0740                     	__end_of_main:
+   647 ;; =============== function _main ends ============
+   648                           
+   649                           	signat	_main,8314
+   650                           	global	_writeOn7SegmentDisplay
+   651                           psect	text115,local,class=CODE,delta=2
+   652                           global __ptext115
+   653  0740                     __ptext115:
+   654                           
+   655 ;; *************** function _writeOn7SegmentDisplay *****************
+   656 ;; Defined at:
+   657 ;;		line 90 in file "main.c"
+   658 ;; Parameters:    Size  Location     Type
+   659 ;;  displaynum      1    wreg     enum E1223
+   660 ;;  value           1    0[COMMON] enum E1204
+   661 ;; Auto vars:     Size  Location     Type
+   662 ;;  displaynum      1    2[COMMON] enum E1223
+   663 ;;  codedvalue      1    3[COMMON] unsigned char 
+   664 ;; Return value:  Size  Location     Type
+   665 ;;                  2    0[COMMON] int 
+   666 ;; Registers used:
+   667 ;;		wreg, fsr0l, fsr0h, status,2, status,0
+   668 ;; Tracked objects:
+   669 ;;		On entry : 0/0
+   670 ;;		On exit  : 0/0
+   671 ;;		Unchanged: 0/0
+   672 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+   673 ;;      Params:         1       0       0       0       0
+   674 ;;      Locals:         2       0       0       0       0
+   675 ;;      Temps:          1       0       0       0       0
+   676 ;;      Totals:         4       0       0       0       0
+   677 ;;Total ram usage:        4 bytes
+   678 ;; Hardware stack levels used:    1
+   679 ;; This function calls:
+   680 ;;		Nothing
+   681 ;; This function is called by:
+   682 ;;		_main
+   683 ;;		_display_test
+   684 ;; This function uses a non-reentrant model
+   685 ;;
+   686                           psect	text115
+   687                           	file	"main.c"
+   688                           	line	90
+   689                           	global	__size_of_writeOn7SegmentDisplay
+   690  00C0                     	__size_of_writeOn7SegmentDisplay	equ	__end_of_writeOn7SegmentDisplay-_writeOn7SegmentDi
+                                 splay
+   691                           	
+   692  0740                     _writeOn7SegmentDisplay:	
+   693                           	opt	stack 7
+   694                           ; Regs used in _writeOn7SegmentDisplay: [wreg-fsr0h+status,2+status,0]
+   695                           ;writeOn7SegmentDisplay@displaynum stored from wreg
+   696  0740  00F2               	movwf	(writeOn7SegmentDisplay@displaynum)
+   697                           	line	91
+   698                           	
+   699  0741                     l2816:	
+   700                           ;main.c: 91: char codedvalue = 0;
+   701  0741  01F3               	clrf	(writeOn7SegmentDisplay@codedvalue)
+   702                           	line	93
+   703                           ;main.c: 93: switch(value)
+   704  0742  2F99               	goto	l2854
+   705                           	line	95
+   706                           ;main.c: 94: {
+   707                           ;main.c: 95: case ZER:
+   708                           	
+   709  0743                     l667:	
+   710                           	line	96
+   711                           	
+   712  0743                     l2818:	
+   713                           ;main.c: 96: codedvalue=0b00111111;
+   714  0743  303F               	movlw	(03Fh)
+   715  0744  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   716  0745  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   717  0746  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   718                           	line	97
+   719                           ;main.c: 97: break;
+   720  0747  2FF1               	goto	l2870
+   721                           	line	99
+   722                           ;main.c: 99: case ONE:
+   723                           	
+   724  0748                     l669:	
+   725                           	line	100
+   726                           	
+   727  0748                     l2820:	
+   728                           ;main.c: 100: codedvalue=0b00000110;
+   729  0748  3006               	movlw	(06h)
+   730  0749  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   731  074A  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   732  074B  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   733                           	line	101
+   734                           ;main.c: 101: break;
+   735  074C  2FF1               	goto	l2870
+   736                           	line	103
+   737                           ;main.c: 103: case TWO:
+   738                           	
+   739  074D                     l670:	
+   740                           	line	104
+   741                           	
+   742  074D                     l2822:	
+   743                           ;main.c: 104: codedvalue=0b01011011;
+   744  074D  305B               	movlw	(05Bh)
+   745  074E  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   746  074F  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   747  0750  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   748                           	line	105
+   749                           ;main.c: 105: break;
+   750  0751  2FF1               	goto	l2870
+   751                           	line	107
+   752                           ;main.c: 107: case THREE:
+   753                           	
+   754  0752                     l671:	
+   755                           	line	108
+   756                           	
+   757  0752                     l2824:	
+   758                           ;main.c: 108: codedvalue=0b01001111;
+   759  0752  304F               	movlw	(04Fh)
+   760  0753  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   761  0754  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   762  0755  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   763                           	line	109
+   764                           ;main.c: 109: break;
+   765  0756  2FF1               	goto	l2870
+   766                           	line	111
+   767                           ;main.c: 111: case FOUR:
+   768                           	
+   769  0757                     l672:	
+   770                           	line	112
+   771                           	
+   772  0757                     l2826:	
+   773                           ;main.c: 112: codedvalue=0b01100110;
+   774  0757  3066               	movlw	(066h)
+   775  0758  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   776  0759  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   777  075A  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   778                           	line	113
+   779                           ;main.c: 113: break;
+   780  075B  2FF1               	goto	l2870
+   781                           	line	115
+   782                           ;main.c: 115: case FIVE:
+   783                           	
+   784  075C                     l673:	
+   785                           	line	116
+   786                           	
+   787  075C                     l2828:	
+   788                           ;main.c: 116: codedvalue=0b01101101;
+   789  075C  306D               	movlw	(06Dh)
+   790  075D  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   791  075E  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   792  075F  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   793                           	line	117
+   794                           ;main.c: 117: break;
+   795  0760  2FF1               	goto	l2870
+   796                           	line	119
+   797                           ;main.c: 119: case SIX:
+   798                           	
+   799  0761                     l674:	
+   800                           	line	120
+   801                           	
+   802  0761                     l2830:	
+   803                           ;main.c: 120: codedvalue=0b01111101;
+   804  0761  307D               	movlw	(07Dh)
+   805  0762  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   806  0763  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   807  0764  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   808                           	line	121
+   809                           ;main.c: 121: break;
+   810  0765  2FF1               	goto	l2870
+   811                           	line	123
+   812                           ;main.c: 123: case SEVEN:
+   813                           	
+   814  0766                     l675:	
+   815                           	line	124
+   816                           	
+   817  0766                     l2832:	
+   818                           ;main.c: 124: codedvalue=0b00000111;
+   819  0766  3007               	movlw	(07h)
+   820  0767  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   821  0768  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   822  0769  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   823                           	line	125
+   824                           ;main.c: 125: break;
+   825  076A  2FF1               	goto	l2870
+   826                           	line	127
+   827                           ;main.c: 127: case EIGTH:
+   828                           	
+   829  076B                     l676:	
+   830                           	line	128
+   831                           	
+   832  076B                     l2834:	
+   833                           ;main.c: 128: codedvalue=0b01111111;
+   834  076B  307F               	movlw	(07Fh)
+   835  076C  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   836  076D  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   837  076E  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   838                           	line	129
+   839                           ;main.c: 129: break;
+   840  076F  2FF1               	goto	l2870
+   841                           	line	131
+   842                           ;main.c: 131: case NINE:
+   843                           	
+   844  0770                     l677:	
+   845                           	line	132
+   846                           	
+   847  0770                     l2836:	
+   848                           ;main.c: 132: codedvalue=0b01101111;
+   849  0770  306F               	movlw	(06Fh)
+   850  0771  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   851  0772  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   852  0773  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   853                           	line	133
+   854                           ;main.c: 133: break;
+   855  0774  2FF1               	goto	l2870
+   856                           	line	135
+   857                           ;main.c: 135: case CHAR_S:
+   858                           	
+   859  0775                     l678:	
+   860                           	line	136
+   861                           	
+   862  0775                     l2838:	
+   863                           ;main.c: 136: codedvalue=0b01101101;
+   864  0775  306D               	movlw	(06Dh)
+   865  0776  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   866  0777  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   867  0778  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   868                           	line	137
+   869                           ;main.c: 137: break;
+   870  0779  2FF1               	goto	l2870
+   871                           	line	139
+   872                           ;main.c: 139: case CHAR_A:
+   873                           	
+   874  077A                     l679:	
+   875                           	line	140
+   876                           	
+   877  077A                     l2840:	
+   878                           ;main.c: 140: codedvalue=0b01110111;
+   879  077A  3077               	movlw	(077h)
+   880  077B  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   881  077C  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   882  077D  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   883                           	line	141
+   884                           ;main.c: 141: break;
+   885  077E  2FF1               	goto	l2870
+   886                           	line	143
+   887                           ;main.c: 143: case CHAR_F:
+   888                           	
+   889  077F                     l680:	
+   890                           	line	144
+   891                           	
+   892  077F                     l2842:	
+   893                           ;main.c: 144: codedvalue=0b01110001;
+   894  077F  3071               	movlw	(071h)
+   895  0780  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   896  0781  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   897  0782  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   898                           	line	145
+   899                           ;main.c: 145: break;
+   900  0783  2FF1               	goto	l2870
+   901                           	line	147
+   902                           ;main.c: 147: case CHAR_E:
+   903                           	
+   904  0784                     l681:	
+   905                           	line	148
+   906                           	
+   907  0784                     l2844:	
+   908                           ;main.c: 148: codedvalue=0b01111001;
+   909  0784  3079               	movlw	(079h)
+   910  0785  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   911  0786  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   912  0787  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   913                           	line	149
+   914                           ;main.c: 149: break;
+   915  0788  2FF1               	goto	l2870
+   916                           	line	151
+   917                           ;main.c: 151: case CHAR_B:
+   918                           	
+   919  0789                     l682:	
+   920                           	line	152
+   921                           	
+   922  0789                     l2846:	
+   923                           ;main.c: 152: codedvalue=0b01111111;
+   924  0789  307F               	movlw	(07Fh)
+   925  078A  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   926  078B  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   927  078C  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   928                           	line	153
+   929                           ;main.c: 153: break;
+   930  078D  2FF1               	goto	l2870
+   931                           	line	155
+   932                           ;main.c: 155: case CHAR_O:
+   933                           	
+   934  078E                     l683:	
+   935                           	line	156
+   936                           	
+   937  078E                     l2848:	
+   938                           ;main.c: 156: codedvalue=0b00111111;
+   939  078E  303F               	movlw	(03Fh)
+   940  078F  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   941  0790  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   942  0791  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   943                           	line	157
+   944                           ;main.c: 157: break;
+   945  0792  2FF1               	goto	l2870
+   946                           	line	159
+   947                           ;main.c: 159: case CHAR_M:
+   948                           	
+   949  0793                     l684:	
+   950                           	line	160
+   951                           	
+   952  0793                     l2850:	
+   953                           ;main.c: 160: codedvalue=0b00110111;
+   954  0793  3037               	movlw	(037h)
+   955  0794  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+   956  0795  0871               	movf	(??_writeOn7SegmentDisplay+0)+0,w
+   957  0796  00F3               	movwf	(writeOn7SegmentDisplay@codedvalue)
+   958                           	line	161
+   959                           ;main.c: 161: break;
+   960  0797  2FF1               	goto	l2870
+   961                           	line	162
+   962                           	
+   963  0798                     l2852:	
+   964                           ;main.c: 162: }
+   965  0798  2FF1               	goto	l2870
+   966                           	line	93
+   967                           	
+   968  0799                     l666:	
+   969                           	
+   970  0799                     l2854:	
+   971  0799  0870               	movf	(writeOn7SegmentDisplay@value),w
+   972                           	; Switch size 1, requested type "space"
+   973                           ; Number of cases is 17, Range of values is 0 to 16
+   974                           ; switch strategies available:
+   975                           ; Name         Instructions Cycles
+   976                           ; simple_byte           52    27 (average)
+   977                           ; direct_byte           59     8 (fixed)
+   978                           ; jumptable            260     6 (fixed)
+   979                           ; rangetable            21     6 (fixed)
+   980                           ; spacedrange           40     9 (fixed)
+   981                           ; locatedrange          17     3 (fixed)
+   982                           ;	Chosen strategy is simple_byte
+   983                           
+   984                           	opt asmopt_off
+   985  079A  3A00               	xorlw	0^0	; case 0
+   986  079B  1903               	skipnz
+   987  079C  2F43               	goto	l2818
+   988  079D  3A01               	xorlw	1^0	; case 1
+   989  079E  1903               	skipnz
+   990  079F  2F48               	goto	l2820
+   991  07A0  3A03               	xorlw	2^1	; case 2
+   992  07A1  1903               	skipnz
+   993  07A2  2F4D               	goto	l2822
+   994  07A3  3A01               	xorlw	3^2	; case 3
+   995  07A4  1903               	skipnz
+   996  07A5  2F52               	goto	l2824
+   997  07A6  3A07               	xorlw	4^3	; case 4
+   998  07A7  1903               	skipnz
+   999  07A8  2F57               	goto	l2826
+  1000  07A9  3A01               	xorlw	5^4	; case 5
+  1001  07AA  1903               	skipnz
+  1002  07AB  2F5C               	goto	l2828
+  1003  07AC  3A03               	xorlw	6^5	; case 6
+  1004  07AD  1903               	skipnz
+  1005  07AE  2F61               	goto	l2830
+  1006  07AF  3A01               	xorlw	7^6	; case 7
+  1007  07B0  1903               	skipnz
+  1008  07B1  2F66               	goto	l2832
+  1009  07B2  3A0F               	xorlw	8^7	; case 8
+  1010  07B3  1903               	skipnz
+  1011  07B4  2F6B               	goto	l2834
+  1012  07B5  3A01               	xorlw	9^8	; case 9
+  1013  07B6  1903               	skipnz
+  1014  07B7  2F70               	goto	l2836
+  1015  07B8  3A03               	xorlw	10^9	; case 10
+  1016  07B9  1903               	skipnz
+  1017  07BA  2F75               	goto	l2838
+  1018  07BB  3A01               	xorlw	11^10	; case 11
+  1019  07BC  1903               	skipnz
+  1020  07BD  2F7A               	goto	l2840
+  1021  07BE  3A07               	xorlw	12^11	; case 12
+  1022  07BF  1903               	skipnz
+  1023  07C0  2F7F               	goto	l2842
+  1024  07C1  3A01               	xorlw	13^12	; case 13
+  1025  07C2  1903               	skipnz
+  1026  07C3  2F84               	goto	l2844
+  1027  07C4  3A03               	xorlw	14^13	; case 14
+  1028  07C5  1903               	skipnz
+  1029  07C6  2F89               	goto	l2846
+  1030  07C7  3A01               	xorlw	15^14	; case 15
+  1031  07C8  1903               	skipnz
+  1032  07C9  2F8E               	goto	l2848
+  1033  07CA  3A1F               	xorlw	16^15	; case 16
+  1034  07CB  1903               	skipnz
+  1035  07CC  2F93               	goto	l2850
+  1036  07CD  2FF1               	goto	l2870
+  1037                           	opt asmopt_on
+  1038                           
+  1039                           	line	162
+  1040                           	
+  1041  07CE                     l668:	
+  1042                           	line	164
+  1043                           ;main.c: 164: switch(displaynum)
+  1044  07CE  2FF1               	goto	l2870
+  1045                           	line	166
+  1046                           ;main.c: 165: {
+  1047                           ;main.c: 166: case CENTSEC:
+  1048                           	
+  1049  07CF                     l686:	
+  1050                           	line	167
+  1051                           	
+  1052  07CF                     l2856:	
+  1053                           ;main.c: 167: PORTD=codedvalue;
+  1054  07CF  0873               	movf	(writeOn7SegmentDisplay@codedvalue),w
+  1055  07D0  1283               	bcf	status, 5	;RP0=0, select bank0
+  1056  07D1  1303               	bcf	status, 6	;RP1=0, select bank0
+  1057  07D2  0088               	movwf	(8)	;volatile
+  1058                           	line	168
+  1059                           ;main.c: 168: break;
+  1060  07D3  2FFF               	goto	l692
+  1061                           	line	170
+  1062                           ;main.c: 170: case DECSEC:
+  1063                           	
+  1064  07D4                     l688:	
+  1065                           	line	171
+  1066                           	
+  1067  07D4                     l2858:	
+  1068                           ;main.c: 171: PORTC=codedvalue;
+  1069  07D4  0873               	movf	(writeOn7SegmentDisplay@codedvalue),w
+  1070  07D5  1283               	bcf	status, 5	;RP0=0, select bank0
+  1071  07D6  1303               	bcf	status, 6	;RP1=0, select bank0
+  1072  07D7  0087               	movwf	(7)	;volatile
+  1073                           	line	172
+  1074                           ;main.c: 172: break;
+  1075  07D8  2FFF               	goto	l692
+  1076                           	line	174
+  1077                           ;main.c: 174: case SEC:
+  1078                           	
+  1079  07D9                     l689:	
+  1080                           	line	175
+  1081                           	
+  1082  07D9                     l2860:	
+  1083                           ;main.c: 175: PORTB=codedvalue;
+  1084  07D9  0873               	movf	(writeOn7SegmentDisplay@codedvalue),w
+  1085  07DA  1283               	bcf	status, 5	;RP0=0, select bank0
+  1086  07DB  1303               	bcf	status, 6	;RP1=0, select bank0
+  1087  07DC  0086               	movwf	(6)	;volatile
+  1088                           	line	176
+  1089                           ;main.c: 176: break;
+  1090  07DD  2FFF               	goto	l692
+  1091                           	line	178
+  1092                           ;main.c: 178: case DDSEC:
+  1093                           	
+  1094  07DE                     l690:	
+  1095                           	line	180
+  1096                           	
+  1097  07DE                     l2862:	
+  1098                           ;main.c: 180: PORTA=codedvalue;
+  1099  07DE  0873               	movf	(writeOn7SegmentDisplay@codedvalue),w
+  1100  07DF  1283               	bcf	status, 5	;RP0=0, select bank0
+  1101  07E0  1303               	bcf	status, 6	;RP1=0, select bank0
+  1102  07E1  0085               	movwf	(5)	;volatile
+  1103                           	line	181
+  1104                           	
+  1105  07E2                     l2864:	
+  1106                           ;main.c: 181: PORTE=(codedvalue >> 6) & 0b00000001;
+  1107  07E2  0873               	movf	(writeOn7SegmentDisplay@codedvalue),w
+  1108  07E3  00F1               	movwf	(??_writeOn7SegmentDisplay+0)+0
+  1109  07E4  3006               	movlw	06h
+  1110  07E5                     u2335:
+  1111  07E5  1003               	clrc
+  1112  07E6  0CF1               	rrf	(??_writeOn7SegmentDisplay+0)+0,f
+  1113  07E7  3EFF               	addlw	-1
+  1114  07E8  1D03               	skipz
+  1115  07E9  2FE5               	goto	u2335
+  1116  07EA  0871               	movf	0+(??_writeOn7SegmentDisplay+0)+0,w
+  1117  07EB  3901               	andlw	01h
+  1118  07EC  0089               	movwf	(9)	;volatile
+  1119                           	line	182
+  1120                           ;main.c: 182: break;
+  1121  07ED  2FFF               	goto	l692
+  1122                           	line	184
+  1123                           ;main.c: 184: default:
+  1124                           	
+  1125  07EE                     l691:	
+  1126                           	line	185
+  1127                           ;main.c: 185: return 0;
+  1128                           ;	Return value of _writeOn7SegmentDisplay is never used
+  1129  07EE  2FFF               	goto	l692
+  1130                           	line	186
+  1131                           	
+  1132  07EF                     l2866:	
+  1133                           ;main.c: 186: break;
+  1134  07EF  2FFF               	goto	l692
+  1135                           	line	187
+  1136                           	
+  1137  07F0                     l2868:	
+  1138                           ;main.c: 187: }
+  1139  07F0  2FFF               	goto	l692
+  1140                           	line	164
+  1141                           	
+  1142  07F1                     l685:	
+  1143                           	
+  1144  07F1                     l2870:	
+  1145  07F1  0872               	movf	(writeOn7SegmentDisplay@displaynum),w
+  1146                           	; Switch size 1, requested type "space"
+  1147                           ; Number of cases is 4, Range of values is 0 to 3
+  1148                           ; switch strategies available:
+  1149                           ; Name         Instructions Cycles
+  1150                           ; simple_byte           13     7 (average)
+  1151                           ; direct_byte           20     8 (fixed)
+  1152                           ; jumptable            260     6 (fixed)
+  1153                           ; rangetable             8     6 (fixed)
+  1154                           ; spacedrange           14     9 (fixed)
+  1155                           ; locatedrange           4     3 (fixed)
+  1156                           ;	Chosen strategy is simple_byte
+  1157                           
+  1158                           	opt asmopt_off
+  1159  07F2  3A00               	xorlw	0^0	; case 0
+  1160  07F3  1903               	skipnz
+  1161  07F4  2FCF               	goto	l2856
+  1162  07F5  3A01               	xorlw	1^0	; case 1
+  1163  07F6  1903               	skipnz
+  1164  07F7  2FD4               	goto	l2858
+  1165  07F8  3A03               	xorlw	2^1	; case 2
+  1166  07F9  1903               	skipnz
+  1167  07FA  2FD9               	goto	l2860
+  1168  07FB  3A01               	xorlw	3^2	; case 3
+  1169  07FC  1903               	skipnz
+  1170  07FD  2FDE               	goto	l2862
+  1171  07FE  2FFF               	goto	l692
+  1172                           	opt asmopt_on
+  1173                           
+  1174                           	line	187
+  1175                           	
+  1176  07FF                     l687:	
+  1177                           	line	189
+  1178                           ;main.c: 188: return 1;
+  1179                           ;	Return value of _writeOn7SegmentDisplay is never used
+  1180                           	
+  1181  07FF                     l692:	
+  1182  07FF  0008               	return
+  1183                           	opt stack 0
+  1184                           GLOBAL	__end_of_writeOn7SegmentDisplay
+  1185  0800                     	__end_of_writeOn7SegmentDisplay:
+  1186 ;; =============== function _writeOn7SegmentDisplay ends ============
+  1187                           
+  1188                           	signat	_writeOn7SegmentDisplay,8314
+  1189                           	global	_DelayMs
+  1190                           psect	text116,local,class=CODE,delta=2
+  1191                           global __ptext116
+  1192  0660                     __ptext116:
+  1193                           
+  1194 ;; *************** function _DelayMs *****************
+  1195 ;; Defined at:
+  1196 ;;		line 12 in file "delay.c"
+  1197 ;; Parameters:    Size  Location     Type
+  1198 ;;  cnt             1    wreg     unsigned char 
+  1199 ;; Auto vars:     Size  Location     Type
+  1200 ;;  cnt             1    1[COMMON] unsigned char 
+  1201 ;;  _dcnt           1    3[COMMON] unsigned char 
+  1202 ;;  i               1    2[COMMON] unsigned char 
+  1203 ;; Return value:  Size  Location     Type
+  1204 ;;		None               void
+  1205 ;; Registers used:
+  1206 ;;		wreg, status,2, status,0
+  1207 ;; Tracked objects:
+  1208 ;;		On entry : 0/0
+  1209 ;;		On exit  : 0/0
+  1210 ;;		Unchanged: 0/0
+  1211 ;; Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+  1212 ;;      Params:         0       0       0       0       0
+  1213 ;;      Locals:         3       0       0       0       0
+  1214 ;;      Temps:          1       0       0       0       0
+  1215 ;;      Totals:         4       0       0       0       0
+  1216 ;;Total ram usage:        4 bytes
+  1217 ;; Hardware stack levels used:    1
+  1218 ;; This function calls:
+  1219 ;;		Nothing
+  1220 ;; This function is called by:
+  1221 ;;		_main
+  1222 ;;		_display_test
+  1223 ;; This function uses a non-reentrant model
+  1224 ;;
+  1225                           psect	text116
+  1226                           	file	"delay.c"
+  1227                           	line	12
+  1228                           	global	__size_of_DelayMs
+  1229  0021                     	__size_of_DelayMs	equ	__end_of_DelayMs-_DelayMs
+  1230                           	
+  1231  0660                     _DelayMs:	
+  1232                           	opt	stack 7
+  1233                           ; Regs used in _DelayMs: [wreg+status,2+status,0]
+  1234                           ;DelayMs@cnt stored from wreg
+  1235  0660  00F1               	movwf	(DelayMs@cnt)
+  1236                           	line	21
+  1237                           ;delay.c: 20: unsigned char i;
+  1238                           ;delay.c: 21: do {
+  1239                           	
+  1240  0661                     l698:	
+  1241                           	line	22
+  1242                           	
+  1243  0661                     l2808:	
+  1244                           ;delay.c: 22: i = 4;
+  1245  0661  3004               	movlw	(04h)
+  1246  0662  00F0               	movwf	(??_DelayMs+0)+0
+  1247  0663  0870               	movf	(??_DelayMs+0)+0,w
+  1248  0664  00F2               	movwf	(DelayMs@i)
+  1249                           	line	23
+  1250                           ;delay.c: 23: do {
+  1251                           	
+  1252  0665                     l699:	
+  1253                           	line	24
+  1254                           ;delay.c: 24: { unsigned char _dcnt; _dcnt = (250)*((20*1000L)/(12*1000L)); while(--_dcn
+                                 t != 0) continue; };
+  1255  0665  30FA               	movlw	(0FAh)
+  1256  0666  00F0               	movwf	(??_DelayMs+0)+0
+  1257  0667  0870               	movf	(??_DelayMs+0)+0,w
+  1258  0668  00F3               	movwf	(DelayMs@_dcnt)
+  1259  0669  2E6B               	goto	l2810
+  1260                           	
+  1261  066A                     l701:	
+  1262  066A  2E6B               	goto	l2810
+  1263                           	
+  1264  066B                     l700:	
+  1265                           	
+  1266  066B                     l2810:	
+  1267  066B  3001               	movlw	low(01h)
+  1268  066C  02F3               	subwf	(DelayMs@_dcnt),f
+  1269  066D  1D03               	btfss	status,2
+  1270  066E  2E70               	goto	u2301
+  1271  066F  2E71               	goto	u2300
+  1272  0670                     u2301:
+  1273  0670  2E6B               	goto	l2810
+  1274  0671                     u2300:
+  1275  0671  2E72               	goto	l2812
+  1276                           	
+  1277  0672                     l702:	
+  1278                           	line	25
+  1279                           	
+  1280  0672                     l2812:	
+  1281                           ;delay.c: 25: } while(--i);
+  1282  0672  3001               	movlw	low(01h)
+  1283  0673  02F2               	subwf	(DelayMs@i),f
+  1284  0674  1D03               	btfss	status,2
+  1285  0675  2E77               	goto	u2311
+  1286  0676  2E78               	goto	u2310
+  1287  0677                     u2311:
+  1288  0677  2E65               	goto	l699
+  1289  0678                     u2310:
+  1290  0678  2E79               	goto	l2814
+  1291                           	
+  1292  0679                     l703:	
+  1293                           	line	26
+  1294                           	
+  1295  0679                     l2814:	
+  1296                           ;delay.c: 26: } while(--cnt);
+  1297  0679  3001               	movlw	low(01h)
+  1298  067A  02F1               	subwf	(DelayMs@cnt),f
+  1299  067B  1D03               	btfss	status,2
+  1300  067C  2E7E               	goto	u2321
+  1301  067D  2E7F               	goto	u2320
+  1302  067E                     u2321:
+  1303  067E  2E61               	goto	l698
+  1304  067F                     u2320:
+  1305  067F  2E80               	goto	l705
+  1306                           	
+  1307  0680                     l704:	
+  1308                           	line	28
+  1309                           	
+  1310  0680                     l705:	
+  1311  0680  0008               	return
+  1312                           	opt stack 0
+  1313                           GLOBAL	__end_of_DelayMs
+  1314  0681                     	__end_of_DelayMs:
+  1315 ;; =============== function _DelayMs ends ============
+  1316                           
+  1317                           	signat	_DelayMs,4216
+  1318                           psect	text117,local,class=CODE,delta=2
+  1319                           global __ptext117
+  1320  0000                     __ptext117:
+  1321                           	global	btemp
+  1322  007E                     	btemp set 07Eh
+  1323                           
+  1324                           	DABS	1,126,2	;btemp
+  1325                           	global	wtemp0
+  1326  007E                     	wtemp0 set btemp
+
+
+HI-TECH Software PICC Macro Assembler V9.82 build 9453 
+Symbol Table                                                                                   Thu Apr 19 17:43:11 2012
+
+                              _RD 0C60                                _WR 0C61                               l700 066B  
+                             l701 066A                               l702 0672                               l703 0679  
+writeOn7SegmentDisplay@displaynum 0072                               l704 0680                               l705 0680  
+                             l660 073B                               l661 073C                               l670 074D  
+                             l662 073D                               l671 0752                               l663 073D  
+                             l655 069E                               l680 077F                               l672 0757  
+                             l656 06E8                               l681 0784                               l673 075C  
+                             l657 06EF                               l690 07DE                               l666 0799  
+                             l682 0789                               l674 0761                               l658 0709  
+                             l691 07EE                               l683 078E                               l675 0766  
+                             l667 0743                               l659 0725                               l692 07FF  
+                             l668 07CE                               l684 0793                               l676 076B  
+                             l685 07F1                               l677 0770                               l669 0748  
+                             l686 07CF                               l678 0775                               l687 07FF  
+                             l679 077A                               l688 07D4                               l689 07D9  
+                             l698 0661                               l699 0665                               _GIE 005F  
+                             _val 0022                              l3020 06A4                              l3012 0681  
+                            l3030 06DD                              l3022 06AE                              l3014 0695  
+                            l3040 0718                              l3032 06E8                              l3024 06B8  
+                            l3016 0699                              l3042 0725                              l3034 06EF  
+                            l3026 06C4                              l3018 069E                              l3044 0734  
+                            l3036 06FC                              l3028 06D0                              l3038 0709  
+                            l2810 066B                              l2812 0672                              l2820 0748  
+                            l2814 0679                              l2830 0761                              l2822 074D  
+                            l2808 0661                              l2840 077A                              l2832 0766  
+                            l2824 0752                              l2816 0741                              l2850 0793  
+                            l2842 077F                              l2834 076B                              l2826 0757  
+                            l2818 0743                              l2860 07D9                              l2852 0798  
+                            l2844 0784                              l2836 0770                              l2828 075C  
+                            l2862 07DE                              l2846 0789                              l2838 0775  
+                            l2870 07F1                              l2854 0799                              l2864 07E2  
+                            l2856 07CF                              l2848 078E                              l2866 07EF  
+                            l2858 07D4                              l2868 07F0                              u2300 0671  
+                            u2301 0670                              u2310 0678                              u2311 0677  
+                            u2320 067F                              u2321 067E                              u2340 06DD  
+                            u2341 06DC                              u2350 06FC                              u2335 07E5  
+                            u2351 06FB                              u2360 0718                              u2361 0717  
+                            u2345 06D9                              u2370 0734                              u2371 0733  
+                            u2355 06F8                              u2365 0714                              u2375 0730  
+                            _WREN 0C62   __size_of_writeOn7SegmentDisplay 00C0                              _main 0681  
+                            btemp 007E                              start 0000                   __end_of_DelayMs 0681  
+                           ?_main 0074                             _EEADR 010D                             _CARRY 0018  
+                           _PORTA 0005                             _PORTB 0006                             _PORTC 0007  
+                           _PORTD 0008                             _PORTE 0009                             _TRISA 0085  
+                           _TRISB 0086                             _TRISC 0087                             _TRISD 0088  
+                           _TRISE 0089                             status 0003                             wtemp0 007E  
+                    __end_of_main 0740            _writeOn7SegmentDisplay 0740                            ??_main 0078  
+                          _EEDATA 010C                            _EECON1 018C                            _EECON2 018D  
+                       ??_DelayMs 0070                            _secval 0024                    __pcstackCOMMON 0070  
+                      __pbssBANK0 0024                        __pmaintext 0681                        _centsecval 0079  
+                         _DelayMs 0660           ?_writeOn7SegmentDisplay 0070              end_of_initialization 065C  
+  __end_of_writeOn7SegmentDisplay 0800                      DelayMs@_dcnt 0073               start_initialization 0656  
+                     __pbssCOMMON 0079                          ?_DelayMs 0070                         __pnvBANK0 0020  
+                       _decsecval 007B                         __ptext115 0740                         __ptext116 0660  
+                       __ptext117 0000       writeOn7SegmentDisplay@value 0070                          DelayMs@i 0072  
+                        _DDsecval 0020                  __size_of_DelayMs 0021                     __size_of_main 00BF  
+                        main@argc 0074                          main@argv 0076                        DelayMs@cnt 0071  
+        ??_writeOn7SegmentDisplay 0071  writeOn7SegmentDisplay@codedvalue 0073  
